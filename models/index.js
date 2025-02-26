@@ -4,18 +4,26 @@ var fs        = require('fs');
 var path      = require('path');
 var Sequelize = require('sequelize');
 var basename  = path.basename(__filename);
-var env       = process.env.NODE_ENV || 'development' || 'production';
+var env       = process.env.NODE_ENV || 'development';
 var config    = require(__dirname + '/../config/config.json')[env];
 var db        = {};
 
 if (config.use_env_variable) {
-  var sequelize = new Sequelize(process.env[config.use_env_variable], {
+  var sequelize = new Sequelize(process.env.DB_URL, {
     dialect: 'mysql',
     protocol: 'mysql',
     logging: true
   });
 } else {
-  var sequelize = new Sequelize(config.database, config.username, config.password, config);
+  var sequelize = new Sequelize(
+      process.env.DB_NAME || config.database,
+      process.env.DB_USER || config.username,
+      process.env.DB_PASS || config.password,
+      {
+        host: process.env.DB_HOST || config.host,
+        dialect: config.dialect
+      }
+  );
 }
 
 fs
