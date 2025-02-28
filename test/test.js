@@ -1,6 +1,12 @@
 var Nightmare = require("nightmare");
 var expect = require("chai").expect;
 
+describe("environements", () => {
+  it("should have a GAME_URL environment variable", () => {
+    expect(process.env.GAME_URL).to.not.equal(undefined);
+  });
+});
+
 
 describe("spaceInvaders", function() {
   // The default tests in mocha is 2 seconds.
@@ -9,7 +15,7 @@ describe("spaceInvaders", function() {
   it("should send user to the game page", function(done) {
     // ID for the login button.
     Nightmare({ show: true })
-      .goto("https://arcane-castle-18653.herokuapp.com/")
+      .goto(process.env.GAME_URL)
       // Click the catalog link
       .click("#gameCard")
       .click("#game")
@@ -25,7 +31,7 @@ describe("spaceInvaders", function() {
   it("should send user to the leaderboard page", function(done) {
     // ID for the login button.
     Nightmare({ show: true })
-      .goto("https://arcane-castle-18653.herokuapp.com/")
+      .goto(process.env.GAME_URL)
       // Click the catalog link
       .click("#leaderboard")
       .evaluate(function() {
