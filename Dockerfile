@@ -1,5 +1,8 @@
 FROM node:lts-alpine
 
+# install curl
+RUN apk add --no-cache curl
+
 # Create app directory
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
