@@ -1,3 +1,4 @@
+name: spaceinvaders
 services:
   mysql:
     image: mysql:8.2
@@ -28,3 +29,9 @@ services:
       GAME_URL: localhost:8080
     ports:
       - "8080:8080"
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8080/" ]
+      interval: 30s
+      timeout: 5s
+      retries: 2
+      start_period: 5s
