@@ -37,7 +37,9 @@ describe("spaceInvaders", function() {
   });
 
   it("should show the record on the leaderboard", async function() {
-    const response = await axios.get(process.env.FRONTEND_URL + 'leaderboard');
+    const response = await axios.get(process.env.FRONTEND_URL + 'leaderboard', {
+      proxy: false
+    });
     const $ = cheerio.load(response.data);
     const record = $("tr").last().children();
     console.log($('tr').last().html());
