@@ -20,8 +20,6 @@ services:
     depends_on:
       mysql:
         condition: service_healthy
-    env_file:
-      - .env
     ports:
       - "8080:8080"
     healthcheck:
@@ -44,8 +42,6 @@ services:
     depends_on:
       space_invaders_backend:
         condition: service_healthy
-    env_file:
-      - .env
     ports:
       - "3000:3000"
     healthcheck:
