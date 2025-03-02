@@ -1,0 +1,20 @@
+{
+  "name": "spaceinvaders-backend",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/janisnjohn/spaceInvaders.git"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "chai": "^4.1.2",
+    "cheerio": "^1.0.0",
+    "cors": "^2.8.5",
+    "express": "^4.16.2",
+    "mysql2": "3.12.0",
+    "sequelize": "^4.22.0"
+  }
+}

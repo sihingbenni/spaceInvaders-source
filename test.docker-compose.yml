@@ -13,25 +13,51 @@ services:
       timeout: 5s
       retries: 2
       start_period: 5s
-  space_invaders:
+  space_invaders_backend:
     build:
-      context: .
+      context: ./backend
       dockerfile: Dockerfile
     depends_on:
       mysql:
         condition: service_healthy
+    env_file:
+      - .env
+    ports:
+      - "8080:8080"
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8080/api/leaderboard" ]
+      interval: 30s
+      timeout: 5s
+      retries: 2
+      start_period: 5s
     environment:
       DB_NAME: space_invader_database
       DB_USER: user
       DB_PASS: password
       DB_HOST: mysql
-      PORT: 8080
-      GAME_URL: localhost:8080
+      BACKEND_URL: localhost:8080
+      FRONTEND_URL: localhost:3000
+  space_invaders_frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    depends_on:
+      space_invaders_backend:
+        condition: service_healthy
+    env_file:
+      - .env
     ports:
-      - "8080:8080"
+      - "3000:3000"
     healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:8080/" ]
+      test: [ "CMD", "curl", "-f", "http://localhost:3000/" ]
       interval: 30s
       timeout: 5s
       retries: 2
       start_period: 5s
+    environment:
+      DB_NAME: space_invader_database
+      DB_USER: user
+      DB_PASS: password
+      DB_HOST: mysql
+      BACKEND_URL: localhost:8080
+      FRONTEND_URL: localhost:3000

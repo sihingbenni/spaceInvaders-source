@@ -1,8 +1,8 @@
 // api routes for getting and posting game results
-var express = require('express');
+const express = require('express');
 const db = require('../models/index.js');
 
-var apiRouter = express.Router();
+const apiRouter = express.Router();
 
 apiRouter.get('/leaderboard', function(request, response){
 	console.log('/api/leaderboard GET');
@@ -20,7 +20,7 @@ apiRouter.post('/score', function(request, response){
     db.Record.create(request.body).then(function(results){
     	console.log('added record')
     	console.log(results)
-    	response.status('200').end();
+    	response.status(200).end();
     });
 });
 

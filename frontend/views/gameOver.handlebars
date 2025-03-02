@@ -40,7 +40,7 @@
         var user_name = $('#first_name').val();
 
         $.ajax({
-            url: '/api/score',
+            url: `{{backendURL}}/api/score`,
             method: "POST",
             data: {score: score, user_name: user_name},
         }).done(function(response){
