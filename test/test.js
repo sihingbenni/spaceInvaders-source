@@ -38,6 +38,7 @@ describe("spaceInvaders", function() {
 
   it("should show the record on the leaderboard", async function() {
     const response = await axios.get(process.env.FRONTEND_URL + 'leaderboard', {
+      timeout: 5000, // Increase timeout to 5 seconds
       proxy: false
     });
     const $ = cheerio.load(response.data);
