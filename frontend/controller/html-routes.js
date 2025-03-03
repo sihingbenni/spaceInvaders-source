@@ -3,44 +3,28 @@ var express = require('express');
 
 var htmlRouter = express.Router();
 
-htmlRouter.get('/leaderboard', function(request, response){
+htmlRouter.get('/leaderboard', async function(request, response) {
 	console.log('/leaderboard GET');
-	/*
-	// execute sequelize method to find records, chain promise to store data as object
-	db.Record.findAll({
-		// sort array of records descending from highest score
-		order: [['score', 'DESC'],]
-	}).then(function(data){
-		let hbsObject = { Record: data };
-		console.log(hbsObject);
-		// render leaderboard view and attach handlebarsObject
-		response.render("leaderboard", hbsObject);
-	});
-	*/
 
-	// call the backend api to get the leaderboard
-
-	const host = process.env.BACKEND_HOST
-	const port = process.env.BACKEND_PORT
-	const url = `http://${host}:${port}/api/leaderboard`
-
-	// [{"id":1,"user_name":"sihingbenni","score":200},{"id":2,"user_name":"sihingbenni","score":200},{"id":3,"user_name":"sihingbenni","score":200}]
+	const host = process.env.BACKEND_HOST;
+	const port = process.env.BACKEND_PORT;
+	const url = `http://${host}:${port}/api/leaderboard`;
 
 	try {
-		fetch(url).then(function(response){
-			return response.json();
-		}).then(function(data){
-			let hbsObject = {
-				Record: data,
-				backendURL: process.env.BACKEND_URL
-			};
-			console.log(hbsObject);
-			// render leaderboard view and attach handlebarsObject
-			response.render("leaderboard", hbsObject);
-		});
+		const fetchResponse = await fetch(url);
+		if (!fetchResponse.ok) {
+			throw new Error(`HTTP error! status: ${fetchResponse.status}`);
+		}
+		const data = await fetchResponse.json();
+		let hbsObject = {
+			Record: data,
+			backendURL: process.env.BACKEND_URL
+		};
+		console.log(hbsObject);
+		response.render("leaderboard", hbsObject);
 	} catch (error) {
-		console.log(error);
-		response.status(500).end();
+		console.error("Error fetching leaderboard data:", error);
+		response.status(500).send("Error fetching leaderboard data");
 	}
 });
 
