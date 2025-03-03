@@ -8,7 +8,7 @@ services:
       MYSQL_USER: user
       MYSQL_PASSWORD: password
     healthcheck:
-      test: ["CMD-SHELL", "mysqladmin ping -h localhost -uuser -ppassword"]
+      test: ["CMD-SHELL", "mysql -uuser -ppassword -e 'use space_invader_database;'"]
       interval: 30s
       timeout: 5s
       retries: 2
