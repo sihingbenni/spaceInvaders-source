@@ -1,7 +1,7 @@
 # Spacer Things
 _A Browser-Based Arcade Classic_
 
-**Play now on [Heroku](https://arcane-castle-18653.herokuapp.com/)**
+**Play now on [sihingbenni.codes](https://sihingbenni.codes)**
 
 ## Instructions
 
