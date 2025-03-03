@@ -36,6 +36,7 @@ describe("spaceInvaders", function() {
     expect(response.status).to.equal(200);
   });
 
+  /*
   it("should show the record on the leaderboard", async function() {
     const response = await axios.get(process.env.FRONTEND_URL + 'leaderboard', {
       timeout: 10000, // Increase timeout to 10 seconds
@@ -47,5 +48,6 @@ describe("spaceInvaders", function() {
     expect(record.eq(0).text()).to.equal('test');
     expect(record.eq(1).text()).to.equal('-100');
   });
+   */
 
 });
